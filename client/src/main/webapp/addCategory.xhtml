@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head></h:head>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{createCategoryController.loadCategoryType}" />
+    </f:metadata>
+    <h:panelGroup id="all">
+        Add category<br />
+        <h:form>
+            Choose category type:
+            <h:selectOneMenu value="#{createCategoryController.category.categoryType}">
+                <f:selectItem itemLabel="-- choose category type --" itemValue="#{null}" />
+                <f:selectItems value="#{gameController.getCategoryTypes()}" var="categoryType" itemLabel="#{categoryType.categoryName}"/>
+                <f:ajax listener="#{createCategoryController.loadCategoryType()}" render="formPanel" />
+            </h:selectOneMenu>
+            <br /><br />
+            <h:inputHidden value="#{createCategoryController.id}" />
+            <h:panelGroup id="formPanel">
+                <h:panelGroup rendered="#{createCategoryController.typeChosen}">
+                    <h:outputLabel value="#{createCategoryController.category.categoryType.paramName}" /> = <h:inputText id="input" value="#{createCategoryController.category.parameter}" />
+                    <br />
+                    <h:commandButton value="save" action="#{createCategoryController.saveCategory()}" >
+                            <f:param name="id" value="#{param['id']}" />
+                    </h:commandButton>
+                    <br />
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:form>
+        </h:panelGroup>
+</f:view>
+</html>
+

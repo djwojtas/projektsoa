@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+    <h:head></h:head>
+    Category types: <br /><br />
+    <h:panelGroup id="all">
+        <ui:repeat var="categoryType" value="#{gameController.getCategoryTypes()}">
+            Categories of type "<b><h:outputLabel value="#{categoryType.categoryName}"/></b>":
+            <br />
+            <br />
+            <ui:repeat var="category" value="#{gameController.getCategoryByType(categoryType)}">
+                <h:outputLabel value="#{categoryType.paramName}"/> = <h:outputLabel value="#{category.parameter}"/>
+                <h:form rendered="#{gameController.checkOwner(category.authUser.login)}">
+                    <h:commandButton action="#{gameController.removeCategory(category.id)}" value="delete"/>
+                </h:form>
+                <br />
+                <h:link value="edit" outcome="addCategory" rendered="#{gameController.checkOwner(category.authUser.login)}">
+                    <f:param name="id" value="#{category.id}" />
+                </h:link>
+                <br />Elements:<br />
+                    <ui:repeat var="element" value="#{gameController.getElementsByCategory(category)}">
+                        Element "<h:outputLabel value="#{element.elementType.elementName}"/>"<br />
+                        <h:form rendered="#{gameController.checkOwner(category.authUser.login)}">
+                            <h:commandButton action="#{gameController.removeElement(element.id)}" value="delete"/>
+                        </h:form>
+                        <br />
+                        <h:link value="edit" outcome="addElement" rendered="#{gameController.checkOwner(category.authUser.login)}">
+                            <f:param name="id" value="#{element.id}" />
+                        </h:link>
+                        <br />
+                        <h:outputLabel value="#{element.elementType.stringParamName}"/> = <h:outputLabel value="#{element.stringParam}"/><br />
+                        <h:outputLabel value="#{element.elementType.longParamName1}"/> = <h:outputLabel value="#{element.longParam1}"/><br />
+                        <h:outputLabel value="#{element.elementType.longParamName2}"/> = <h:outputLabel value="#{element.longParam2}"/><br />
+                        <h:outputLabel value="#{element.elementType.longParamName3}"/> = <h:outputLabel value="#{element.longParam3}"/><br />
+                        <br />
+                        <br />
+                    </ui:repeat>
+                <br />
+                <hr />
+            </ui:repeat>
+            <br />
+            <br />
+            <br />
+        </ui:repeat>
+    </h:panelGroup>
+</f:view>
+</html>
+

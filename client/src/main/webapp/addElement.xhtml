@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head></h:head>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{createElementController.loadElementType}" />
+    </f:metadata>
+    <h:panelGroup id="all">
+        Add element:<br />
+        <h:form>
+            Choose element type:
+            <h:selectOneMenu value="#{createElementController.element.elementType}">
+                <f:selectItem itemLabel="-- choose element type --" itemValue="#{null}" />
+                <f:selectItems value="#{gameController.getElementTypes()}" var="elementType" itemLabel="#{elementType.elementName}"/>
+                <f:ajax listener="#{createElementController.loadElementType()}" render="formPanel" />
+            </h:selectOneMenu>
+            <br />
+            Choose category to assign to: <br />
+            <h:selectOneMenu value="#{createElementController.element.category}">
+                <f:selectItem itemLabel="-- choose category --" itemValue="#{null}" />
+                <f:selectItems value="#{gameController.getCategories()}" var="category" itemLabel="#{category.parameter}"/>
+            </h:selectOneMenu>
+            <br /><br />
+            <h:inputHidden value="#{createElementController.id}" />
+            <h:panelGroup id="formPanel">
+                <h:panelGroup rendered="#{createElementController.typeChosen}">
+                    <h:outputLabel value="#{createElementController.element.elementType.stringParamName}" /> = <h:inputText id="input" value="#{createElementController.element.stringParam}" /><br />
+                    <h:outputLabel value="#{createElementController.element.elementType.longParamName1}" /> = <h:inputText id="input1" value="#{createElementController.element.longParam1}" /><br />
+                    <h:outputLabel value="#{createElementController.element.elementType.longParamName2}" /> = <h:inputText id="input2" value="#{createElementController.element.longParam2}" /><br />
+                    <h:outputLabel value="#{createElementController.element.elementType.longParamName3}" /> = <h:inputText id="input3" value="#{createElementController.element.longParam3}" /><br />
+                    <br />
+                    <br />
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:commandButton value="save" action="#{createElementController.saveElement()}" >
+                <f:param name="id" value="#{param['id']}" />
+            </h:commandButton>
+        </h:form>
+        </h:panelGroup>
+</f:view>
+</html>
+
