@@ -17,7 +17,7 @@
             <ui:repeat var="category" value="#{gameController.getCategoryByType(categoryType)}">
                 <h:outputLabel value="#{categoryType.paramName}"/> = <h:outputLabel value="#{category.parameter}"/>
                 <h:form rendered="#{gameController.checkOwner(category.authUser.login)}">
-                    <h:commandButton action="#{gameController.removeCategory(category.id)}" value="delete"/>
+                    <h:commandButton action="#{gameController.removeCategory(category.id)}" value="delete" />
                 </h:form>
                 <br />
                 <h:link value="edit" outcome="addCategory" rendered="#{gameController.checkOwner(category.authUser.login)}">
@@ -27,7 +27,7 @@
                     <ui:repeat var="element" value="#{gameController.getElementsByCategory(category)}">
                         Element "<h:outputLabel value="#{element.elementType.elementName}"/>"<br />
                         <h:form rendered="#{gameController.checkOwner(category.authUser.login)}">
-                            <h:commandButton action="#{gameController.removeElement(element.id)}" value="delete"/>
+                            <p:commandButton action="#{gameController.removeElement(element.id)}" value="delete" process="@parent" update="all"/>
                         </h:form>
                         <br />
                         <h:link value="edit" outcome="addElement" rendered="#{gameController.checkOwner(category.authUser.login)}">
