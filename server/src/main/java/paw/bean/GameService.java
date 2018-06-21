@@ -136,6 +136,11 @@ public class GameService implements RemoteGameService, Serializable {
         return categoryDAO.findByLogin(remoteUser);
     }
 
+    @Override
+    public List<Element> getTopElements() {
+        return elementDAO.getTopElements();
+    }
+
     public void removeCategory(Category category) {
         categoryDAO.deleteCategory(category);
     }

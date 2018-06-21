@@ -4,10 +4,7 @@ import paw.entity.Category;
 import paw.entity.Element;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -69,6 +66,11 @@ public class ElementDAO {
         TypedQuery<Element> query =
                 em.createNamedQuery("Element.findByCategory", Element.class)
                         .setParameter("category", category);
+        return query.getResultList();
+    }
+
+    public List<Element> getTopElements() {
+        Query query = em.createNativeQuery("select * from elements e where longParam3 = (SELECT max(longParam3) from elements b where e.elementType=b.elementType group by elementType ) group by elementType", Element.class);
         return query.getResultList();
     }
 }

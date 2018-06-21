@@ -24,4 +24,5 @@ public interface RemoteGameService {
     AuthUser getAuthUserByLogin(String login);
     void updateUser(AuthUser authUser);
     List<Category> getCategoryByLogin(String remoteUser);
+    List<Element> getTopElements();
 }

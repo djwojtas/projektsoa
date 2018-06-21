@@ -48,6 +48,33 @@
             <br />
             <br />
         </ui:repeat>
+
+
+        <h:panelGroup id="topElements">
+            <h:panelGroup>
+                <h:outputLabel value="Top elements"/>
+                <ui:repeat value="#{gameController.topElements}" var="element">
+                    <br /><br />
+                    Element "<h:outputLabel value="#{element.elementType.elementName}"/>"
+                    <br />
+                    <h:outputLabel value="#{element.elementType.stringParamName}"/> = <h:outputLabel value="#{element.stringParam}"/><br />
+                    <h:outputLabel value="#{element.elementType.longParamName1}"/> = <h:outputLabel value="#{element.longParam1}"/><br />
+                    <h:outputLabel value="#{element.elementType.longParamName2}"/> = <h:outputLabel value="#{element.longParam2}"/><br />
+                    <h:outputLabel value="#{element.elementType.longParamName3}"/> = <h:outputLabel value="#{element.longParam3}"/><br />
+                </ui:repeat>
+            </h:panelGroup>
+        </h:panelGroup>
+        <p:growl widgetVar="growl" showDetail="true" />
+        <p:socket onMessage="handleMessage" channel="/notify" >
+            <p:ajax event="message" update="topElements"/>
+        </p:socket>
+        <script type="text/javascript">
+            function handleMessage(facesmessage) {
+                facesmessage.severity = 'info';
+                PF('growl').show([facesmessage]);
+            }
+        </script>
+
     </h:panelGroup>
 </f:view>
 </html>
