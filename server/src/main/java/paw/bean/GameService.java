@@ -5,6 +5,7 @@ import paw.dao.CategoryTypeDAO;
 import paw.dao.ElementDAO;
 import paw.dao.ElementTypeDAO;
 import paw.entity.*;
+import paw.interceptor.MaxValInterceptor;
 import paw.security.HashUtil;
 import paw.security.RegistrationDAO;
 import remote.RemoteGameService;
@@ -13,6 +14,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.List;
@@ -81,6 +83,7 @@ public class GameService implements RemoteGameService, Serializable {
     }
 
     @Override
+    @Interceptors(MaxValInterceptor.class)
     public void saveElement(Element element) {
         elementDAO.saveElement(element);
     }
