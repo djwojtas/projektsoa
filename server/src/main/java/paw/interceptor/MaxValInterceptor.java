@@ -18,7 +18,7 @@ public class MaxValInterceptor {
         Optional<Element> topElement = elementDAO.getTopElements().stream()
                 .filter(e -> e.getElementType().getId() == element.getElementType().getId())
                 .findFirst();
-        if (element.getId() != null && topElement.isPresent() && element.getLongParam3()> topElement.get().getLongParam3()) {
+        if (element.getId() == null && topElement.isPresent() && element.getLongParam3()> topElement.get().getLongParam3()) {
             element.setLongParam3(topElement.get().getLongParam3());
         }
         ictx.proceed();

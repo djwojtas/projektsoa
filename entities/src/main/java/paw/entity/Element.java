@@ -1,5 +1,6 @@
 package paw.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.faces.component.UIComponent;
@@ -51,6 +52,7 @@ public class Element implements Converter, Serializable {
     @JoinColumn(name = "elementType", referencedColumnName = "id")
     private ElementType elementType;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category")
     private Category category;
