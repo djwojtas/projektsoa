@@ -28,6 +28,7 @@ public class CategoryDAO {
             LOGGER.info("Saved in database: " + category);
         }
         catch(Exception e) {
+            e.printStackTrace();
             LOGGER.warning("Error while adding to database: " + e);
         }
     }

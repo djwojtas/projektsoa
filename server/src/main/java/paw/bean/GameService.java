@@ -141,6 +141,16 @@ public class GameService implements RemoteGameService, Serializable {
         return elementDAO.getTopElements();
     }
 
+    @Override
+    public void addCategoryType(CategoryType categoryType) {
+        categoryTypeDAO.saveCategoryType(categoryType);
+    }
+
+    @Override
+    public void addElementType(ElementType elementType) {
+        elementTypeDAO.saveElementType(elementType);
+    }
+
     public void removeCategory(Category category) {
         categoryDAO.deleteCategory(category);
     }

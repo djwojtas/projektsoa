@@ -25,4 +25,6 @@ public interface RemoteGameService {
     void updateUser(AuthUser authUser);
     List<Category> getCategoryByLogin(String remoteUser);
     List<Element> getTopElements();
+    void addCategoryType(CategoryType categoryType);
+    void addElementType(ElementType elementType);
 }
